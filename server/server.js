@@ -13,4 +13,8 @@ app.use(function (error, req, res, next) {
 	res.status(500).send(error.message);
 });
 
+app.get('/health', (req, res) => {
+	res.status(200).send('OK');
+});
+
 app.listen(3000);
