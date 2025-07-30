@@ -14,6 +14,7 @@ app.use(function (error, req, res, next) {
 });
 
 app.get('/health', (req, res) => {
+	console.log("Chamada da rota '/health'")
 	res.status(200).send('OK');
 });
 
