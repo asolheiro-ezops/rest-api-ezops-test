@@ -33,7 +33,8 @@ jobs:
 
       - name: Build Database Schema Creator
         run: |
-          ls
+          ls ./rest-api-ezops-test
+          ls ./rest-api-ezops-test/database
           docker buildx build -t $DOCKER_IMAGE_SCHEMA_DB:latest ./rest-api-ezops-test/database
           docker push $DOCKER_IMAGE_SCHEMA_DB:latest
 
