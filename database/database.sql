@@ -1,0 +1,8 @@
+CREATE SCHEMA IF NOT EXISTS blog;
+
+CREATE TABLE IF NOT EXISTS blog.post (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    date TIMESTAMP DEFAULT NOW()
+);

@@ -7,6 +7,7 @@ on:
 
 env:
   DOCKER_IMAGE_API: asolheiro/ob-backend
+  DOCKER_IMAGE_SCHEMA_DB: asolheiro/ob-db
   NODE_ENV: production
 
 jobs:
@@ -29,6 +30,11 @@ jobs:
           git clone https://github.com/asolheiro-ezops/rest-api-ezops-test ./rest-api-ezops-test
           docker buildx build -t $DOCKER_IMAGE_API:latest ./rest-api-ezops-test
           docker push $DOCKER_IMAGE_API:latest
+
+      - name: Build Database Schema Creator
+        run: |
+          docker buildx build -t $DOCKER_IMAGE_SCHEMA_DB:latest ./rest-api-ezops-test/database
+          docker push $DOCKER_IMAGE_SCHEMA_DB:latest
 
   deploy-api:
     name: Deploy API to ECS
