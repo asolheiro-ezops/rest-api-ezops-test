@@ -67,7 +67,7 @@ jobs:
 
       - name: Update ECS service with new task definition
         run: |
-          CLUSTER_NAME="${{ secrets.ECS_CLUSTER_NAME }}"
+          CLUSTER_NAME=="${{ secrets.ECS_CLUSTER_NAME }}"
           SERVICE_NAME="${{ secrets.ECS_SERVICE_NAME }}"
           IMAGE_URI="${{ env.DOCKER_IMAGE_API }}:latest"
 
@@ -76,8 +76,19 @@ jobs:
           aws ecs describe-task-definition --task-definition $TASK_DEF_ARN --query "taskDefinition" > task-def.json
 
           jq --arg IMAGE "$IMAGE_URI" \
-            '.containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' \
+            '.containerDefinitions[0].image = $IMAGE
+            | del(
+                .taskDefinitionArn,
+                .revision,
+                .status,
+                .requiresAttributes,
+                .compatibilities,
+                .registeredAt,
+                .registeredBy,
+                .deregisteredAt  # 👈 Adicionado
+              )' \
             task-def.json > new-task-def.json
+
 
           NEW_TASK_DEF_ARN=$(aws ecs register-task-definition --cli-input-json file://new-task-def.json --query "taskDefinition.taskDefinitionArn" --output text)
 
