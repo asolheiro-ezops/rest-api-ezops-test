@@ -46,8 +46,8 @@ jobs:
 
       - name: Build Database Schema Creator
         run: |
-          curl -o Dockerfile https://raw.githubusercontent.com/asolheiro-ezops/rest-api-ezops-test/deploy/database/Dockerfile
-          ls
+          git clone https://github.com/asolheiro-ezops/rest-api-ezops-test/tree/deploy
+          cd ./rest-api-ezops-test/database
 
           docker buildx build -t $DOCKER_IMAGE_SCHEMA_DB:latest .
           docker push $DOCKER_IMAGE_SCHEMA_DB:latest
