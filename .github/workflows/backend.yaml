@@ -49,7 +49,7 @@ jobs:
           curl -o Dockerfile https://raw.githubusercontent.com/asolheiro-ezops/rest-api-ezops-test/deploy/database/Dockerfile
           ls
 
-          docker buildx build -t $DOCKER_IMAGE_SCHEMA_DB:latest ./db
+          docker buildx build -t $DOCKER_IMAGE_SCHEMA_DB:latest .
           docker push $DOCKER_IMAGE_SCHEMA_DB:latest
 
   deploy-api:
